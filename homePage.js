@@ -13,13 +13,13 @@ const getData = async () => {
     });
     if (!resp.ok) {
       if (resp.status === 401) {
-        throw new Error("opps! not permitted 401");
+        throw new Error("oops! not permitted 401");
       }
       if (resp.status === 404) {
-        throw new Error(" opps! page not found 404");
+        throw new Error(" oops! page not found 404");
       }
       if (resp.status === 500) {
-        throw new Error("opps! general server error 500");
+        throw new Error("oops! general server error 500");
       }
     }
 
@@ -34,7 +34,7 @@ const getData = async () => {
         <div class="card-body">
           <h5 class="card-title">${product.name}</h5>
           <p class="card-text">${product.description}</p>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#infoModal">
+          <button type="button" class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#infoModal">
           scopri di più
         </button>
         </div>
