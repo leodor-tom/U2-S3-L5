@@ -1,16 +1,14 @@
 const productID = new URLSearchParams(window.location.search).get("product");
-console.log("product", productID);
 
 const URL = productID
   ? "https://striveschool-api.herokuapp.com/api/product/" + productID
   : "https://striveschool-api.herokuapp.com/api/product/";
-console.log(URL);
+
 window.onload = async () => {
   const cardTitle = document.querySelector(".card-title");
   const submitBtn = document.getElementById("submitBtn");
   const dltBtn = document.getElementById("delete-btn");
   dltBtn.onclick = handleDlt;
-  console.log(dltBtn);
   if (productID) {
     cardTitle.innerText = "Edit or delete the product";
 
@@ -72,20 +70,21 @@ const handleDlt = async () => {
   dltText.innerHTML = "are you sure?";
   const myModal = new bootstrap.Modal(document.getElementById("dltModal"), {});
   myModal.toggle();
+};
 
+confirmDlt.addEventListener("click", e => {
+  const resp = fetch(URL, {
+    method: "DELETE",
+    headers: {
+      authorization:
+        " bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NjA2MmMwMzRmZjAwMTQwM2Y1MmEiLCJpYXQiOjE2OTI5NTM4ODQsImV4cCI6MTY5NDE2MzQ4NH0.QrpJRH0-n4UpBx8hQNsIH-X-QH2qmpPx79RT17sP1R8 ",
+    },
+  });
   if (confirmDlt) {
-    const resp = await fetch(URL, {
-      method: "DELETE",
-      headers: {
-        authorization:
-          " bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGU4NjA2MmMwMzRmZjAwMTQwM2Y1MmEiLCJpYXQiOjE2OTI5NTM4ODQsImV4cCI6MTY5NDE2MzQ4NH0.QrpJRH0-n4UpBx8hQNsIH-X-QH2qmpPx79RT17sP1R8 ",
-      },
-    });
     const myModal = new bootstrap.Modal(document.getElementById("doneModal"), {});
     myModal.toggle();
   }
-};
-
+});
 const backHome = () => window.location.assign("./homePage.html");
 
 const confirm = () => {
